@@ -11,24 +11,29 @@ public class FamilyTree {
     public FamilyTree(){
     }
 
+    // class node bascialy represents each leave of the tree. In this case, it is a person. [person is node, family is tree]
     class node
     {
-        String father;
-        String mother;
-        String name;
+        String father;// father of node
+        String mother;// mother of node
+        String name;// name of the person
         int A,B;
+        //default constructor
         public node(){
             this.father=null;
             this.mother=null;
             this.name=null;
             A = B = 1000;
         }
+        //parameterized constructor
         public node(String na){
             this.father=null;
             this.mother=null;
             this.name=na;
             A = B = 1000;
         }
+        
+        //parameterized constructor with arguments like name of father, mother, person itself
         public node(String fa, String ma,String na){
             this.father=fa;
             this.mother=ma;
@@ -37,6 +42,8 @@ public class FamilyTree {
         }
 
     }
+    
+    // This function finds the person the given family tree and we find the person we are looking for, it returns true
     public boolean searchnode(String name)
     {
         for(int i=0;i<members.size();i++)
@@ -46,6 +53,8 @@ public class FamilyTree {
         }
         return false;
     }
+    
+    //This function finds the place of the node which needs to be searched in the tree
     public int searchnodeplace(String name)
     {
         for(int i=0;i<members.size();i++)
@@ -63,7 +72,9 @@ public class FamilyTree {
     ArrayList<Integer> ansdistance=new ArrayList<>();
 
 
-
+    /*  buildFamilyTree() makes a reverse binary tree from the data which is fetched from a file. 
+        Here, the argument needs to be a filename*/
+    
     public void buildFamilyTree(String familyFile) throws Exception{
 
         BufferedReader r;
@@ -114,12 +125,12 @@ public class FamilyTree {
         catch (Exception e){e.printStackTrace();}
     }
 
-
+ /*
+ evaluate() Traverse the tree to answer the queries and the required functionality of the program.
+ It has 2 arguments which includes the filename which has the queries and a filename where the output needs to be stored
+  */
     public void evaluate(String queryFile,String outputFile) throws Exception{
-        /*
-         * Traverse the tree to answer the queries
-         * For information on queries take a look at the handout
-         */
+       
         BufferedReader r;
         BufferedWriter w;
         try
@@ -191,6 +202,8 @@ public class FamilyTree {
     }
     int couz=0;
     int cou=0;
+    
+    //checkforclose() checks if the 2 members are related or not by using recursion
     public void checkforclose(String n1, String n2){
         node temp1 = members.get(searchnodeplace(n1));
         node temp2 = members.get(searchnodeplace(n2));
@@ -208,6 +221,8 @@ public class FamilyTree {
 
 
     }
+    
+    //checkfordistance() returns the distance between any 2 members in the tree. Here, only the least possible distance is returned.
     public int checkfordistance(String n1,String n2,int countm)
     {
         int ip=searchnodeplace(n1);
@@ -231,7 +246,7 @@ public class FamilyTree {
     }
 
 
-
+    //checkfordescendent() checks if the a person-1 is a descendent of the person-2. Arguments here refer to the names of the two persons.
     public boolean checkfordescendent(String n1,String n2)
     {
         int ip=searchnodeplace(n1);
